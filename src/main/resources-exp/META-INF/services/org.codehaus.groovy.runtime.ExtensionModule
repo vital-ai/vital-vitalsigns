@@ -1,0 +1,4 @@
+moduleName=VitalSignsExtensions
+moduleVersion=1.0
+extensionClasses=ai.vital.vitalsigns.extensions.ComparisonExtension
+
