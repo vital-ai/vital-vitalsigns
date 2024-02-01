@@ -38,6 +38,8 @@ public class Truth {
         return uri;
     }
 
+    public String name() { return uri; }
+
     @Override
     public String toString() {
         return "Truth{" +
@@ -77,6 +79,16 @@ public class Truth {
 
         // Null
         return Truth.UNKNOWN;
+    }
+
+
+    public static Truth fromString(String s) {
+
+        if(s == null) throw new RuntimeException("Truth string must not be null");
+
+        // TODO check string
+        return of(s);
+
     }
 
 }

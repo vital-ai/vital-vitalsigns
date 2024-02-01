@@ -1,0 +1,8 @@
+[diff "vitalsignsdiff"]
+	command = vitalsigns diff
+[merge "vitalsignsmerge"]
+	name = vitalsigns merge driver
+	driver = $VITAL_HOME/vitalsigns/bin/vitalsigns gitmergetool -b %A -l %A -r %B -o %A
+[merge "vitalsignsjarmerge"]
+	name = vitalsigns jar merge driver
+	driver = $VITAL_HOME/vitalsigns/bin/vitalsigns gitjarmerge -b %O -l %A -r %B -o %A

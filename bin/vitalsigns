@@ -1,0 +1,205 @@
+#!/usr/bin/env groovy
+
+import static groovy.io.FileType.FILES
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+// def homeDir = new File(getClass().protectionDomain.codeSource.location.path).parentFile.parentFile.getAbsolutePath() + '/';
+
+String VITAL_HOME = System.getenv('VITAL_HOME')
+
+if(!VITAL_HOME) { 
+
+    System.err.println("VITAL_HOME environment variable not set.")
+    System.exit(-1);
+}
+
+
+def homeDir = VITAL_HOME + "/" + "vitalsigns" + "/"		
+
+String command = args.length > 0 ? args[0] : null
+
+List jars = [];
+
+new File(homeDir + 'lib').eachFileRecurse(FILES) {
+	if(it.name.endsWith('.jar')) {
+		jars.add(it.absolutePath);
+	}
+}
+
+new File(homeDir + 'command').eachFileRecurse(FILES) {
+	if(it.name.endsWith('.jar')) {
+		jars.add(it.absolutePath);
+	}
+}
+
+//vitaldomain jar
+new File(VITAL_HOME + '/vital-domain/').eachFile(FILES) {
+	if(it.name.startsWith('VitalDomain-groovy-')) {
+		jars.add(it.absolutePath);
+	}
+}
+
+if(command == 'verify') {
+	// println 'verify command - loading all domain jars..'
+	new File(VITAL_HOME + '/domain-groovy-jar/').eachFile(FILES) {
+		if(it.name.endsWith(".jar")) {
+			println "using domain jar: ${it.absolutePath}"
+			jars.add(it.absolutePath)
+		}
+	}
+}
+
+if(command == 'generate') {
+
+	// append all but this ontologies if necessary
+	// println 'verify command - loading all domain jars but this one...'
+	
+    Boolean inOnt = false
+    
+    String ontologyParam = null
+    
+	for(String arg : args) {
+        
+        if(inOnt) {
+            if(arg.lastIndexOf('/') >= 0) arg = arg.substring(arg.lastIndexOf('/') + 1)
+            ontologyParam = arg
+            inOnt = false
+        } else {
+            if(arg == '-o' || arg == 'ontology') {
+                inOnt = true
+            }
+        }
+    }
+    
+	Pattern domain_version = Pattern.compile('(?<domain>.+)\\-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.owl');
+    
+    Pattern domain_jar_version = Pattern.compile('(?<domain>.+)\\-groovy\\-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.jar');
+    
+    String domainName = null
+
+    if(ontologyParam) {
+
+        Matcher m = domain_version.matcher(new File(ontologyParam).name)
+        if(!m.matches()) {
+            System.err.println("ontology param does not match owl file pattern: " + domain_version.pattern() + " " + ontologyParam)
+            return
+        }
+        domainName = m.group("domain")
+
+    } else {
+
+        System.err.println("No --ontology param!")
+
+        return
+    }
+    
+	
+	new File(VITAL_HOME + '/domain-groovy-jar/').eachFile(FILES) {
+		if(it.name.endsWith(".jar")) {
+            
+            
+            Matcher jm = domain_jar_version.matcher(it.name)
+            
+            if(!jm.matches()) {
+                System.err.println("domain jar file does not match pattern: " + domain_jar_version.pattern())
+                return
+            } 
+            
+            if(domainName.equals( jm.group('domain') ) ) {
+                println "Skipping current domain jar that's being regenerated ${it.absolutePath}"
+                return  
+            }
+            
+			//println "using domain jar: ${it.absolutePath}"
+			jars.add(it.absolutePath)
+		}
+	}
+	
+}
+
+if(command == 'status') {
+
+  //include all known module jars in order to check vdk version
+  List modules = [ "vital-lucene", "vitalprime", "vitalservice", "vital-sparql", "vital-sql", "vitalutil" ]
+
+  for(String module : modules) {
+  
+    File mDir = new File(VITAL_HOME , module)
+    
+    if( ! mDir.isDirectory() ) continue
+    
+    mDir.eachFileRecurse(FILES) {
+    
+      if(it.name.endsWith(".jar")) {
+        jars.add(it.absolutePath)
+      }
+    
+    }
+  
+  }
+
+}
+
+
+
+/*** vital-groovy filter ***/
+def vitalGroovyDir = new File(VITAL_HOME, 'vital-groovy')
+
+if(vitalGroovyDir.exists() && vitalGroovyDir.isDirectory()) {
+
+  for(Iterator<String> iterator = jars.iterator(); iterator.hasNext(); ) {
+  
+    String jar = iterator.next()
+
+    def n = new File(jar).name
+    
+    if(n.matches('groovy\\-4.+\\.jar')) {
+    
+      iterator.remove()
+      
+    }
+  
+  }
+  
+  File groovyUpdated = null
+  
+  vitalGroovyDir.eachFileRecurse(FILES) {
+  
+  	if(it.name.endsWith('.jar')) {
+  	
+      if(it.name.matches('groovy\\-4.+\\.jar')) {
+        groovyUpdated = it
+      }
+  	
+      jars.add(it.absolutePath);
+      
+    }
+    
+  }
+  
+  if(groovyUpdated == null) {
+    System.err.println "Alternative groovy jar not found in: ${vitalGroovyDir.absolutePath}"
+    return
+  }
+   
+  println "GROOVY jar replaced with vital version: ${groovyUpdated.absolutePath}"
+   
+}
+/*** end of vital-groovy filter ***/
+
+
+def mainClass = 'ai.vital.vitalsigns.command.VitalSignsCommand'
+
+List cmd = ['java', '-cp', (String)jars.join(File.pathSeparator), mainClass]
+
+for(String a : args) {
+	cmd.add(a)
+}
+
+println cmd
+
+def process=new ProcessBuilder(cmd).redirectErrorStream(true).start()
+
+process.inputStream.eachLine {println it}
+

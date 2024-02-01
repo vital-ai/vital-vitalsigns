@@ -1,0 +1,7 @@
+// import ai.vital.vitalsigns.model.VITAL_Node;
+
+def ctx = context(contentClass: 'ai.vital.vitalsigns.model.VITAL_Node')
+
+contributor(ctx) {
+    property name: 'name', type: 'java.lang.String'
+}

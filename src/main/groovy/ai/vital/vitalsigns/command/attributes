@@ -1,0 +1,3 @@
+*.owl	diff=vitalsignsdiff
+*.owl	merge=vitalsignsmerge
+domain-groovy-jar/*.jar	merge=vitalsignsjarmerge

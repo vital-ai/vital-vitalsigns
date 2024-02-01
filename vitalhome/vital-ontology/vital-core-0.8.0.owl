@@ -777,9 +777,9 @@ HiveSQL</rdfs:comment>
     
 
 
-    <!-- http://vital.ai/ontology/vital-core#hasSourceURL -->
+    <!-- http://vital.ai/ontology/vital-core#hasSourceUrl -->
 
-    <owl:DatatypeProperty rdf:about="http://vital.ai/ontology/vital-core#hasSourceURL">
+    <owl:DatatypeProperty rdf:about="http://vital.ai/ontology/vital-core#hasSourceUrl">
         <rdfs:domain rdf:resource="http://vital.ai/ontology/vital-core#Dataset"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>

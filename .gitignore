@@ -1,3 +1,4 @@
+src-vital-core-generated/*
 target/*
 /vitalhome/vital-domain/
 **/.DS_Store

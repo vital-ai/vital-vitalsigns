@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src-bootstrap/main/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src-core/main/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src-experiment/main/groovy" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src-temp/main/groovy" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/src-vitaldomain/main/groovy" isTestSource="false" />
     </content>
   </component>

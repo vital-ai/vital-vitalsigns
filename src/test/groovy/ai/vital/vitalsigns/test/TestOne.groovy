@@ -1,12 +1,11 @@
 package ai.vital.vitalsigns.test
 
-import ai.vital.vitalsigns.VitalSigns
-import ai.vital.vitalsigns.core.model.VITAL_Node
-import ai.vital.vitalsigns.datatype.Truth
+import ai.vital.vitalsigns.VitalSignsSingleton
+
 import ai.vital.vitalsigns.impl.PropertyFactory
+import ai.vital.vitalsigns.model.VITAL_Node
 import ai.vital.vitalsigns.model.property.StringPropertyValue
-import ai.vital.vitalsigns.core.model.properties.Property_hasName
-import ai.vital.vitalsigns.core.model.properties.Property_hasOrganizationID
+
 
 import static ai.vital.vitalsigns.datatype.Truth.YES
 import static ai.vital.vitalsigns.datatype.Truth.NO
@@ -32,7 +31,7 @@ class TestOne {
 
         println "Hello"
 
-        VitalSigns vs = VitalSigns.get()
+        VitalSignsSingleton vs = VitalSignsSingleton.get()
 
         def p1 = PropertyFactory.createPropertyInstance(StringPropertyValue.class, Property_hasName.class)
 

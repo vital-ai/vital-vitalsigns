@@ -1,6 +1,6 @@
 package ai.vital.vitalsigns.ast;
 
-import ai.vital.vitalsigns.VitalSigns;
+import ai.vital.vitalsigns.VitalSignsSingleton;
 import ai.vital.vitalsigns.constant.ConsiderValueConstant;
 import ai.vital.vitalsigns.constant.HasValueConstant;
 import ai.vital.vitalsigns.constant.TruthConstant;
@@ -305,7 +305,7 @@ public class VitalSignsAST implements ASTTransformation {
         System.out.println("Comparing " + a + " with " + b);
 
         // defer back to groovy side
-        return VitalSigns.equality(a,b);
+        return VitalSignsSingleton.equality(a,b);
 
         // return a.equals(b);
     }
