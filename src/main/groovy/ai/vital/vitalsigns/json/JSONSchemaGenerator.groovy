@@ -634,7 +634,7 @@ public class JSONSchemaGenerator {
 	
 	public static LinkedHashMap<String, Object> getPropertyRangeValue(OntModel m, OntProperty ontProperty) throws Exception {
 	
-		Boolean multipleValues = RDFUtils.getBooleanPropertySingleValue(ontProperty, VitalCoreOntology.hasMultipleValues);
+		Boolean multipleValues = RDFUtils.getBooleanPropertySingleValue(ontProperty, VitalCoreOntology.isMultiValue);
 		
 		if(multipleValues == null) multipleValues = false;
 		

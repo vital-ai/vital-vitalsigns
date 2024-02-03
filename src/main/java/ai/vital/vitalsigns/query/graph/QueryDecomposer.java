@@ -2,7 +2,6 @@ package ai.vital.vitalsigns.query.graph;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import ai.vital.vitalservice.query.QueryContainerType;
 import ai.vital.vitalservice.query.VitalGraphArcContainer;
 import ai.vital.vitalservice.query.VitalGraphBooleanContainer;
@@ -22,11 +21,9 @@ public class QueryDecomposer {
 	}
 	
 	public List<GraphPattern> decomposeQuery() {
-		
-		
+
 		//use depth first method to decompose the query into list of graph patterns
-		
-		
+
 		Arc arc = new Arc();
 		arc.arcContainer = topContainer;
 		arc.topArc = true;
@@ -47,7 +44,6 @@ public class QueryDecomposer {
 
 	private List<GraphPattern> processArc(Arc arc, VitalGraphQueryContainer<?> container) {
 
-		
 		//process all children and get the graph patterns
 		
 		List<GraphPattern> patterns = null;

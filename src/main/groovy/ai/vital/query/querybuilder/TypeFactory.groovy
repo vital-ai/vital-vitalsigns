@@ -32,7 +32,7 @@ abstract class TypeFactory extends AbstractFactory {
 
 	public void onNodeCompleted(FactoryBuilderSupport builder,
 			Object parent, Object t) {
-		//invoice.save()
+
 	}
 
 

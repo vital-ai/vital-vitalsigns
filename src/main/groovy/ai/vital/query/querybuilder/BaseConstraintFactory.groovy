@@ -1,5 +1,7 @@
 package ai.vital.query.querybuilder
 
+import ai.vital.vitalsigns.datatype.Truth
+
 import java.util.regex.Matcher
 import java.util.regex.Pattern;
 
@@ -38,7 +40,7 @@ abstract class BaseConstraintFactory extends AbstractFactory {
 
 	public void onNodeCompleted(FactoryBuilderSupport builder,
 			Object parent, Object c) {
-		//invoice.save()
+
 	}
 			
 	abstract protected Class<? extends GraphObject> getClazz();
@@ -198,7 +200,7 @@ abstract class BaseConstraintFactory extends AbstractFactory {
 				} else if(unwrapped instanceof StringProperty) {
 					v = vs
 				} else if(unwrapped instanceof TruthProperty) {
-                    v = TruthProperty.Truth.fromString(vs)
+                    v = Truth.fromString(vs)
 				} else if(unwrapped instanceof URIProperty) {
 					if(uriValuePattern.matcher(vs).matches()) {
 						vs = vs.substring(1, vs.length()-1)

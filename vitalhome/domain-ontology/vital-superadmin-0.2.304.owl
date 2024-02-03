@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://vital.ai/ontology/vital-superadmin#"
+     xml:base="http://vital.ai/ontology/vital-superadmin"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:vital-sa="http://vital.ai/ontology/vital-superadmin#"
+     xmlns:vital-core="http://vital.ai/ontology/vital-core#">
+    <owl:Ontology rdf:about="http://vital.ai/ontology/vital-superadmin">
+        <owl:imports rdf:resource="http://vital.ai/ontology/vital"/>
+        <vital-core:hasDefaultArtifactId>vitalservicesuperadmin</vital-core:hasDefaultArtifactId>
+        <vital-core:hasDefaultGroupId>vital-ai</vital-core:hasDefaultGroupId>
+        <vital-core:hasDefaultPackage>ai.vital.superadmin.domain</vital-core:hasDefaultPackage>
+        <owl:versionInfo>0.2.304</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#hasInterval -->
+
+    <owl:DatatypeProperty rdf:about="http://vital.ai/ontology/vital-superadmin#hasInterval">
+        <rdfs:domain rdf:resource="http://vital.ai/ontology/vital-superadmin#SuperAdminJob"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#hasIntervalTimeUnit -->
+
+    <owl:DatatypeProperty rdf:about="http://vital.ai/ontology/vital-superadmin#hasIntervalTimeUnit">
+        <rdfs:domain rdf:resource="http://vital.ai/ontology/vital-superadmin#SuperAdminJob"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">one of: SECOND, MINUTE, HOUR, DAY</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#hasLastCompilationError -->
+
+    <owl:DatatypeProperty rdf:about="http://vital.ai/ontology/vital-superadmin#hasLastCompilationError">
+        <rdfs:domain rdf:resource="http://vital.ai/ontology/vital-superadmin#SuperAdminDatascript"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">if null then the script has been compiled successfully</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#hasLastModifiedDate -->
+
+    <owl:DatatypeProperty rdf:about="http://vital.ai/ontology/vital-superadmin#hasLastModifiedDate">
+        <rdfs:domain rdf:resource="http://vital.ai/ontology/vital-superadmin#SuperAdminDatascript"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#hasScriptBody -->
+
+    <owl:DatatypeProperty rdf:about="http://vital.ai/ontology/vital-superadmin#hasScriptBody">
+        <rdfs:domain rdf:resource="http://vital.ai/ontology/vital-superadmin#SuperAdminDatascript"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#hasScriptPath -->
+
+    <owl:DatatypeProperty rdf:about="http://vital.ai/ontology/vital-superadmin#hasScriptPath">
+        <rdfs:domain rdf:resource="http://vital.ai/ontology/vital-superadmin#SuperAdminDatascript"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#isCallable -->
+
+    <owl:DatatypeProperty rdf:about="http://vital.ai/ontology/vital-superadmin#isCallable">
+        <rdfs:domain rdf:resource="http://vital.ai/ontology/vital-superadmin#SuperAdminJob"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:comment xml:lang="en">a flag that indicates if a job also implements Script interface - may be callable</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#SuperAdminDatascript -->
+
+    <owl:Class rdf:about="http://vital.ai/ontology/vital-superadmin#SuperAdminDatascript">
+        <rdfs:subClassOf rdf:resource="http://vital.ai/ontology/vital-core#VITAL_Node"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#SuperAdminJob -->
+
+    <owl:Class rdf:about="http://vital.ai/ontology/vital-superadmin#SuperAdminJob">
+        <rdfs:subClassOf rdf:resource="http://vital.ai/ontology/vital-superadmin#SuperAdminDatascript"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#SuperAdminLogin -->
+
+    <owl:Class rdf:about="http://vital.ai/ontology/vital-superadmin#SuperAdminLogin">
+        <rdfs:subClassOf rdf:resource="http://vital.ai/ontology/vital#CredentialsLogin"/>
+    </owl:Class>
+    
+
+
+    <!-- http://vital.ai/ontology/vital-superadmin#VitalServiceSuperAdminKey -->
+
+    <owl:Class rdf:about="http://vital.ai/ontology/vital-superadmin#VitalServiceSuperAdminKey">
+        <rdfs:subClassOf rdf:resource="http://vital.ai/ontology/vital-core#VitalAuthKey"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

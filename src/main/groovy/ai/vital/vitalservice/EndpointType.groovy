@@ -3,14 +3,11 @@ package ai.vital.vitalservice
 enum EndpointType {
 	
 	MOCK("Mock"),
-	VITALSAAS("VitalSaaS"),
 	ALLEGROGRAPH("Allegrograph"),
 	LUCENEDISK("LuceneDisk"),
 	LUCENEMEMORY("LuceneMemory"),
-	DYNAMODB("DynamoDB"),
 	INDEXDB("IndexDB"),
 	VITALPRIME("VitalPrime"),
-	VITALSPARK("VitalSpark"),
     SQL("SQL")
 	
 	

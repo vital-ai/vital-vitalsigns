@@ -7,6 +7,8 @@ import ai.vital.query.HyperEdgeConstraint;
 import ai.vital.query.SELECT;
 import ai.vital.query.Target;
 import ai.vital.vitalsigns.model.GraphObject
+import ai.vital.vitalsigns.model.VITAL_HyperEdge
+
 
 class HyperEdgeConstraintFactory extends BaseConstraintFactory {
 
@@ -43,7 +45,7 @@ class HyperEdgeConstraintFactory extends BaseConstraintFactory {
 
 	@Override
 	protected Class<? extends GraphObject> getClazz() {
-		return VITAL_HyperEdge.class;
+		return VITAL_HyperEdge.class
 	}
 
 	@Override

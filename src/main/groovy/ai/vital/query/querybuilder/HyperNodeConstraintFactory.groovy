@@ -5,7 +5,9 @@ import ai.vital.query.HYPER_ARC;
 import ai.vital.query.HyperNodeConstraint;
 import ai.vital.query.SELECT;
 import ai.vital.query.Target;
-import ai.vital.vitalsigns.model.GraphObject;
+import ai.vital.vitalsigns.model.GraphObject
+import ai.vital.vitalsigns.model.VITAL_HyperNode
+
 
 class HyperNodeConstraintFactory extends BaseConstraintFactory {
 

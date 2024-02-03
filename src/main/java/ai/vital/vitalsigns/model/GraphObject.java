@@ -108,7 +108,7 @@ public class GraphObject<T extends GraphObject<T>> extends GroovyObjectSupport i
     @SuppressWarnings("unchecked")
     public GraphObject() {
 
-        //this forces vitalsigns to initialize
+        // this forces vitalsigns to initialize
 
         String classURI = VitalSigns.get().getClassesRegistry().getClassURI(this.getClass());
 
@@ -614,12 +614,16 @@ public class GraphObject<T extends GraphObject<T>> extends GroovyObjectSupport i
     private IProperty validateAndTransformProperty(PropertyMetadata pm,
                                                    Object newValue, boolean wrapWithTrait) {
 
+        // System.out.println("validateAndTransformProperty: " + pm.getShortName());
+        // System.out.println("validateAndTransformProperty Value: " + newValue);
+        // System.out.println("validateAndTransformProperty isMultiValue: " + pm.isMultipleValues());
+
+
         IProperty pattern = pm.getPattern();
 
         IProperty out = null;
 
         Class<? extends IProperty> base = pm.getBaseClass();
-
 
         if( base == BooleanProperty.class ) {
 
@@ -872,7 +876,9 @@ public class GraphObject<T extends GraphObject<T>> extends GroovyObjectSupport i
             if(RDF.type.getURI().equals(pname)) throw new RuntimeException("Cannot access external rdf:type properties, use 'types' getter instead");
 
             if( pname.lastIndexOf(':') == pname.length() -1 ) throw new RuntimeException("External property name must not end with colon: " + pname);
+
             String prefix = pname.substring(0,  indexOfColon);
+
             String ns = VitalSigns.get().listExternalNamespaces().get(prefix);
 
             if(ns == null){
@@ -1100,7 +1106,7 @@ public class GraphObject<T extends GraphObject<T>> extends GroovyObjectSupport i
      * @return
      */
     public Object get(Class<?> prop) {
-        return this.getProperty(PropertyUtils.getShortName(prop));
+        return this.getProperty( PropertyUtils.getShortName(prop) );
     }
 
     /**

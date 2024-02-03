@@ -2,11 +2,8 @@ package ai.vital.service.lucene.impl
 
 import ai.vital.vitalsigns.model.GraphMatch
 import ai.vital.vitalsigns.model.VITAL_Node
-
 import java.util.Map.Entry
-
 import org.apache.commons.collections.buffer.PriorityBuffer;
-
 import ai.vital.lucene.model.LuceneSegment;
 import ai.vital.lucene.model.impl.LuceneResultsProvider;
 import ai.vital.lucene.query.URIResultElement;
@@ -43,7 +40,6 @@ import ai.vital.vitalsigns.uri.URIGenerator;
 
 public class LuceneServiceQueriesImpl {
 
-	
 	public static ResultList handleQuery(VitalOrganization organization, VitalApp app, VitalQuery query, List<LuceneSegment> segments) {
 		
 	    CollectStats collectStats = query.getCollectStats();
@@ -61,8 +57,8 @@ public class LuceneServiceQueriesImpl {
 			return LuceneServiceQueriesImpl.selectQuery(segments, (VitalSelectQuery) query, queryStats);
 		} else if(query instanceof VitalGraphQuery) {
 		    long start = System.currentTimeMillis();
-//			Executor executor = new LuceneGraphQueryExecutor(segments);
-//			GraphQueryImplementation impl = new GraphQueryImplementation(executor, (VitalGraphQuery) query);
+			// Executor executor = new LuceneGraphQueryExecutor(segments);
+			// GraphQueryImplementation impl = new GraphQueryImplementation(executor, (VitalGraphQuery) query);
 			ResultsProvider provider = new LuceneResultsProvider(segments, queryStats);
 			GraphQueryImplementation impl = new GraphQueryImplementation(provider, (VitalGraphQuery) query);
 			ResultList rl = impl.execute();
@@ -73,9 +69,9 @@ public class LuceneServiceQueriesImpl {
 			return rl;
 		} else if(query instanceof VitalPathQuery) {
 			try {
-//				App app = new App();
-//				app.setID("vitalsigns-internal");
-//				app.setOrganizationID(organization.getID());
+				// App app = new App();
+				//	app.setID("vitalsigns-internal");
+				// app.setOrganizationID(organization.getID());
 				return new PathQueryImplementation((VitalPathQuery)query, new LucenePathQueryExecutor(organization, app, segments, queryStats)).execute();
 			} catch (Exception e) {
 				throw new RuntimeException(e);
@@ -113,7 +109,7 @@ public class LuceneServiceQueriesImpl {
 				
 			}
 			
-			//if it's aggregation the ignore limit and skip
+			// if it's aggregation the ignore limit and skip
 			VitalSelectAggregationQuery vsaq = (VitalSelectAggregationQuery)query;
 			aggType = vsaq.getAggregationType();
 			agg_count = 0;

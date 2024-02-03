@@ -6,8 +6,7 @@ abstract class AggregateFunction {
 	String propertyURI
 	
 	String variableName
-	
-	
+
 	static class Average extends AggregateFunction {
 		
 	} 

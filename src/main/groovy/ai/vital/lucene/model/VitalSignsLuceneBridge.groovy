@@ -162,8 +162,7 @@ public class VitalSignsLuceneBridge {
 	 */
 	@SuppressWarnings("deprecation")
 	public Document graphObjectToDocument(GraphObject graphObject, boolean storeFields, boolean storeNumericFieldsB) throws IOException { 
-		
-		
+
 		String uri = graphObject.getURI();
 		
 		if(uri == null) {
@@ -173,31 +172,30 @@ public class VitalSignsLuceneBridge {
 		if(uri.isEmpty()) {
 			throw new IOException("Empty URI in graph object.");
 		}
-		
 
 		Set<String> propertiesList = new HashSet<String>();
 		
-//		Map<String, Field> fields = new HashMap<String, Field>();
+		//	Map<String, Field> fields = new HashMap<String, Field>();
 		
 		Store storeDynamicFields = storeFields ? Store.YES : Store.NO;
 		
 		Store storeNumericFields = storeFields || storeNumericFieldsB ? Store.YES : Store.NO;
 		
-		//the document is stored as a compact string now
-//		storeDynamicFields = Store.NO
+		// the document is stored as a compact string now
+		// storeDynamicFields = Store.NO
 		
 		DomainOntology _do = VitalSigns.get().getClassDomainOntology(graphObject.getClass());
+
 		if(_do == null) throw new IOException("No domain ontology found for class: " + graphObject.getClass().getCanonicalName());
 		
-		//reverse transient properties
-//		fields.put(VitalCoreOntology.hasOntologyIRI.getURI(), _do.uri)
-//		fields.put(VitalCoreOntology.hasVersionIRI.getURI(), _do.toVersionString())
+		// reverse transient properties
+		// fields.put(VitalCoreOntology.hasOntologyIRI.getURI(), _do.uri)
+		// fields.put(VitalCoreOntology.hasVersionIRI.getURI(), _do.toVersionString())
 		
 		graphObject.set( Property_hasOntologyIRI.class, oldVersionFilter( _do.getUri() ) );
+
 		graphObject.set( Property_hasVersionIRI.class, _do.toVersionString() );
-		
-		
-		
+
 		Document d = new Document();
 		
 		d.add(new Field(URI_FIELD, uri, Store.YES, Field.Index.NOT_ANALYZED_NO_NORMS));
@@ -209,8 +207,23 @@ public class VitalSignsLuceneBridge {
 		IProperty types = (IProperty) graphObject.get( Property_types.class );
 		
 		if( types != null) {
-			
-			Collection typesC = (Collection) types.rawValue();
+
+			def types_object = types.rawValue()
+
+			Collection typesC = null
+
+			if(types_object instanceof Collection) {
+
+				typesC = (Collection) types_object
+			}
+			else {
+
+				typesC = [ types_object ] as Collection
+
+			}
+
+			// TODO for some reason this is a string and not a collection of strings
+			// Collection typesC = (Collection) types.rawValue();
 			
 			for( Object typeURI : typesC ) {
 				
@@ -495,6 +508,7 @@ public class VitalSignsLuceneBridge {
 //		}
 		
 		String uriString = document.get(URI_FIELD);
+
 		if(uriString == null) throw new IOException("No " + URI_FIELD + " field");
 
 //		Class<? extends GraphObject> cls = 
@@ -931,6 +945,7 @@ public class VitalSignsLuceneBridge {
        if(input == null) return null;
        
        VersionedURI vu = VersionedURI.analyze(input);
+
        return vu.versionlessURI;
        
     }

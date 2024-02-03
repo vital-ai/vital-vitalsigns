@@ -91,4 +91,25 @@ public class Truth {
 
     }
 
+
+    public static Truth fromInteger(Integer val) {
+
+        if(val == null) throw new RuntimeException("Truth integer must not be null");
+
+        int i = val.intValue();
+
+        if(i == 1) {
+            return YES;
+        } else if(i == -1) {
+            return NO;
+        } else if(i == 0) {
+            return Truth.UNKNOWN;
+        } else if(i == 2) {
+            return Truth.MU;
+        } else {
+            throw new RuntimeException("Truth integer must be a value within [-1, 2] range");
+        }
+    }
+
+
 }

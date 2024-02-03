@@ -37,7 +37,8 @@ class HYPER_ARCFactory extends AbstractFactory {
         } else 
 		/*if(parent instanceof Query) {
 			((Query)parent).topArc = hyperarc
-		} else */if(parent instanceof ARC_BASE || parent instanceof ARC_BOOLEAN) {
+		} else */
+			if(parent instanceof ARC_BASE || parent instanceof ARC_BOOLEAN) {
 			if(ha.capture == null) ha.capture = Capture.BOTH
 			parent.children.add(hyperarc)
 		} else {

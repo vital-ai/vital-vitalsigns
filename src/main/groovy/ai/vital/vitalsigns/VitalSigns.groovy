@@ -579,9 +579,9 @@ public class VitalSigns {
 		// singleton.organization = VitalOrganization.withId(singleton.licenseDetails.getOrganizationID());
         // singleton.organization.set(Property_hasName.class, singleton.licenseDetails.getOrganizationName());
 
-		VitalOrganization organization = VitalOrganization.withId("vital-ai")
+		VitalOrganization organization = VitalOrganization.withId("haley.ai")
 
-		organization.name = "VitalAI"
+		organization.name = "Haley.AI"
 
 		println "Organization: " + organization
 

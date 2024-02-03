@@ -1,15 +1,14 @@
 package ai.vital.query
 
-import ai.vital.query.querybuilder.BaseConstraintFactory;
-import ai.vital.vitalsigns.model.property.IProperty;
-import ai.vital.vitalservice.query.VitalGraphQueryPropertyCriterion;
-import ai.vital.vitalsigns.VitalSigns;
-import ai.vital.vitalsigns.model.property.URIProperty;
+import ai.vital.query.querybuilder.BaseConstraintFactory
+import ai.vital.vitalsigns.model.property.IProperty
+import ai.vital.vitalservice.query.VitalGraphQueryPropertyCriterion
+import ai.vital.vitalsigns.VitalSigns
+import ai.vital.vitalsigns.model.property.URIProperty
 import ai.vital.vitalsigns.properties.PropertyTrait
 
 class Utils {
 
-	
 	public static VitalGraphQueryPropertyCriterion eval(String s) {
 		
 		return BaseConstraintFactory.evaluate(s);
@@ -69,7 +68,5 @@ class Utils {
         return provides
         
     }
-	
 
-	
 }

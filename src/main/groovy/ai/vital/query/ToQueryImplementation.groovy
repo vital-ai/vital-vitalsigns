@@ -1,7 +1,6 @@
 package ai.vital.query;
 
 import groovy.lang.GString;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -96,8 +95,8 @@ public class ToQueryImplementation {
 		if(c == 0) ex("Query must have either GRAPH, SELECT, PATH, DELETE, SQL or SPARQL element (exactly 1)");
 		
 		if(select != null) {
-			//convert that into select element
-//			topArc = new ARC
+			// convert that into select element
+			// topArc = new ARC
 			return handleSelectQuery(select);
 		}
 
@@ -373,8 +372,7 @@ public class ToQueryImplementation {
 		boolean toSource = false;
 		boolean toDestination = false;
 		
-		
-		
+
 		if(parentArcContainer == null) {
 			
 				//just current empty empty or empty current empty
@@ -500,6 +498,7 @@ public class ToQueryImplementation {
 //			if(arc.getCapture() != null) ex("Cannot use capture element in DELETE case");
 			
 			Delete d = arc.getDelete();
+
 			if(d == null) ex("delete value not set in an arc!");
 			
 			Capture capture = null;
@@ -912,6 +911,7 @@ public class ToQueryImplementation {
 			}
 			
 			VitalGraphValue value = null;
+
 			GraphElement symbol = "forward".equals( arc.getDirection() ) ? GraphElement.Destination : GraphElement.Source;
 			
             if(provides.isUri()) {
@@ -1131,7 +1131,7 @@ public class ToQueryImplementation {
 	}
 
 	private VitalSelectQuery handleSelectQuery(SELECT select) {
-		// 
+
 		
 		//check aggregation function
 		AggregateFunction af = null;
@@ -1362,6 +1362,7 @@ public class ToQueryImplementation {
 				VitalGraphQueryPropertyCriterion pc = con.getCriterion();
 				
 				pc.setSymbol(GraphElement.Source);
+				
 //				if(pc.getSymbol() == null ) ex("Null symbol: " + pc);
 				
 				Type type = con.getType();

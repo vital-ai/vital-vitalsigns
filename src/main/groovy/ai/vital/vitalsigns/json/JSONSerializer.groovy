@@ -54,9 +54,29 @@ public class JSONSerializer {
 		LinkedHashMap<String, Object> o = new LinkedHashMap<String, Object>();
 
 		URIProperty vitalType = (URIProperty) ((IProperty)go.get(Property_vitaltype.class)).unwrapped();
-		
-		MultiValueProperty types = (MultiValueProperty) ((IProperty)go.get(Property_types.class)).unwrapped();
-		
+
+		// TODO figure out why this is string property ands not multi-value prop
+		def types_object = ((IProperty)go.get(Property_types.class)).unwrapped();
+
+		// MultiValueProperty types = (MultiValueProperty) ((IProperty)go.get(Property_types.class)).unwrapped();
+
+		MultiValueProperty types = null
+
+		if(types_object instanceof MultiValueProperty) {
+
+			types = types_object
+		}
+		else {
+
+			List<IProperty> props = new ArrayList<IProperty>();
+
+			props.add(types_object)
+
+			MultiValueProperty<URIProperty> p = new MultiValueProperty(props)
+
+			types = p
+		}
+
 		o.put("type", vitalType.get());
 		List<String> typesList = new ArrayList<String>();
 		for(Object t : types) {

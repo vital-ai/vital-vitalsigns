@@ -2,13 +2,11 @@ package ai.vital.query
 
 // containers
 
-
 // how to separate out the Node/Empty/Empty case
 // from the Parent/Edge/Node case?
 
 // the "top" has to be the node/empty/empty case
 // a middle/bottom case has to be the parent/edge/node case
-
 
 enum Direction {
 	FORWARD, REVERSE

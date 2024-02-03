@@ -6,6 +6,8 @@ import ai.vital.query.NodeConstraint;
 import ai.vital.query.SELECT;
 import ai.vital.query.Target;
 import ai.vital.vitalsigns.model.GraphObject
+import ai.vital.vitalsigns.model.VITAL_Node
+
 
 class NodeConstraintFactory extends BaseConstraintFactory {
 

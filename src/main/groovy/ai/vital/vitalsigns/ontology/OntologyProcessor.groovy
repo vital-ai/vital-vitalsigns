@@ -1134,7 +1134,7 @@ public class OntologyProcessor {
 			}
 		}
 		
-		Boolean multipleValues = RDFUtils.getBooleanPropertySingleValue(dp, VitalCoreOntology.hasMultipleValues);
+		Boolean multipleValues = RDFUtils.getBooleanPropertySingleValue(dp, VitalCoreOntology.isMultiValue);
 		if(multipleValues == null) multipleValues = false;
 		
 		Boolean internalStore = RDFUtils.getBooleanPropertySingleValue(dp, VitalCoreOntology.isInternalStore);

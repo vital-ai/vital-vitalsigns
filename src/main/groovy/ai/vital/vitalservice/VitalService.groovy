@@ -128,6 +128,7 @@ interface VitalService {
 	
 	// delete
 	public VitalStatus delete(URIProperty uri) throws VitalServiceUnimplementedException, VitalServiceException
+
 	public VitalStatus delete(VitalTransaction transaction, URIProperty uri) throws VitalServiceUnimplementedException, VitalServiceException
 	
 	public VitalStatus delete(List<URIProperty> uris) throws VitalServiceUnimplementedException, VitalServiceException

@@ -119,8 +119,12 @@ class VitalCoreOntology implements OntologyDescriptor {
 	public final static Property isDefaultLabel = ResourceFactory.createProperty(NS + "isDefaultLabel");
 	
 	//property annotation
-	public final static Property hasMultipleValues = ResourceFactory.createProperty(NS + "hasMultipleValues");
-	
+	// public final static Property hasMultipleValues = ResourceFactory.createProperty(NS + "hasMultipleValues");
+
+	public final static Property isMultiValue = ResourceFactory.createProperty(NS + "isMultiValue");
+
+
+
 	//property annotation
 	public final static Property hasSingleValue = ResourceFactory.createProperty(NS + "hasSingleValue");
     

@@ -31,7 +31,7 @@ class VITAL_GraphContainerObject extends GraphObject<VITAL_GraphContainerObject>
             "class"
     ));
 
-    //overridden properties map
+    // overridden properties map
 
     public VITAL_GraphContainerObject() {
         super();
@@ -45,11 +45,13 @@ class VITAL_GraphContainerObject extends GraphObject<VITAL_GraphContainerObject>
     public Object getProperty(String property) {
 
         if(forwardedProperties.contains(property)) {
+
             return super.getProperty(property);
         }
 
         if(this instanceof GraphMatch) {
-            IProperty p = _properties.get(property);
+
+            IProperty p = super._properties.get(property);
 
             if(p != null && p instanceof StringProperty) {
                 GraphObject g = CompactStringSerializer.fromString(p.toString());
@@ -60,7 +62,7 @@ class VITAL_GraphContainerObject extends GraphObject<VITAL_GraphContainerObject>
 
         }
 
-        return _properties.get(property);
+        return super._properties.get(property);
 
     }
 
@@ -74,23 +76,23 @@ class VITAL_GraphContainerObject extends GraphObject<VITAL_GraphContainerObject>
 
         //direct map access?
         if(newValue == null) {
-            _properties.remove(property);
+            super._properties.remove(property);
             return;
         }
 
         newValue = PropertyFactory.createBaseProperty(newValue);
 
-        _properties.put(property, (IProperty) newValue);
+        super._properties.put(property, (IProperty) newValue);
 
     }
 
     @Override
     public String toString() {
-        return this.getClass().getCanonicalName() + "-URI:" + getURI() + "-" + _properties;
+        return this.getClass().getCanonicalName() + "-URI:" + getURI() + "-" + super._properties;
     }
 
     public Set<String> getDynamicPropertyNames() {
-        return new HashSet<String>(_properties.keySet());
+        return new HashSet<String>(super._properties.keySet());
     }
 
 }
