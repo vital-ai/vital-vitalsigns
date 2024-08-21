@@ -21,3 +21,8 @@ class GovernmentOrganization(Organization):
     def get_allowed_properties(cls):
         return super().get_allowed_properties() + GovernmentOrganization._allowed_properties
 
+    @classmethod
+    def get_class_uri(cls) -> str:
+        return 'http://vital.ai/ontology/vital#GovernmentOrganization'
+
+

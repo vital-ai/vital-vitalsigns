@@ -1,19 +1,15 @@
 package ai.vital.vitalsigns
 
-
-import java.nio.file.Files;
+import java.nio.file.Files
 import java.nio.file.Path
-
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-
-import ai.vital.vitalservice.VitalStatus;
+import org.apache.commons.codec.digest.DigestUtils
+import org.apache.commons.io.FileUtils
+import org.apache.commons.io.IOUtils
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import com.hp.hpl.jena.rdf.model.Model
+import com.hp.hpl.jena.rdf.model.ModelFactory
+import ai.vital.vitalservice.VitalStatus
 import ai.vital.vitalsigns.algorithms.TopologicalSorting;
 import ai.vital.vitalsigns.command.OntVersionCommands;
 import ai.vital.vitalsigns.command.OntVersionCommands.LoadedOntology;

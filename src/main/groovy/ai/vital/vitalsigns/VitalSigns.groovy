@@ -3,49 +3,47 @@ package ai.vital.vitalsigns
 import ai.vital.vitalsigns.model.VITAL_Edge
 
 import java.lang.reflect.UndeclaredThrowableException
-import java.nio.charset.StandardCharsets;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
+import java.nio.charset.StandardCharsets
+import java.nio.file.FileSystem
+import java.nio.file.FileSystems
+import java.nio.file.Files
 import java.nio.file.Path
 import java.util.Map.Entry
-import java.util.jar.Attributes;
-import java.util.jar.JarInputStream;
-import java.util.jar.Manifest;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.jar.Attributes
+import java.util.jar.JarInputStream
+import java.util.jar.Manifest
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.PatternLayout;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.github.marschall.pathclassloader.PathClassLoader;
-import com.google.common.jimfs.Configuration;
-import com.google.common.jimfs.Jimfs;
-import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.ResIterator;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.ResourceFactory;
-import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
-import com.hp.hpl.jena.util.FileManager;
-import com.hp.hpl.jena.util.iterator.ExtendedIterator;
-import com.hp.hpl.jena.vocabulary.OWL;
-import com.hp.hpl.jena.vocabulary.RDF;
-import com.typesafe.config.Config;
-
-import ai.vital.lucene.model.LuceneSegment;
+import org.apache.commons.codec.digest.DigestUtils
+import org.apache.commons.io.FileUtils
+import org.apache.commons.io.IOUtils
+import org.apache.commons.lang3.RandomStringUtils
+import org.apache.log4j.FileAppender
+import org.apache.log4j.Level
+import org.apache.log4j.PatternLayout
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import com.github.marschall.pathclassloader.PathClassLoader
+import com.google.common.jimfs.Configuration
+import com.google.common.jimfs.Jimfs
+import com.hp.hpl.jena.ontology.OntClass
+import com.hp.hpl.jena.ontology.OntModel
+import com.hp.hpl.jena.rdf.model.Model
+import com.hp.hpl.jena.rdf.model.ModelFactory
+import com.hp.hpl.jena.rdf.model.Property
+import com.hp.hpl.jena.rdf.model.RDFNode
+import com.hp.hpl.jena.rdf.model.ResIterator
+import com.hp.hpl.jena.rdf.model.Resource
+import com.hp.hpl.jena.rdf.model.ResourceFactory
+import com.hp.hpl.jena.rdf.model.Statement
+import com.hp.hpl.jena.rdf.model.StmtIterator
+import com.hp.hpl.jena.util.FileManager
+import com.hp.hpl.jena.util.iterator.ExtendedIterator
+import com.hp.hpl.jena.vocabulary.OWL
+import com.hp.hpl.jena.vocabulary.RDF
+import com.typesafe.config.Config
+import ai.vital.lucene.model.LuceneSegment
 import ai.vital.lucene.model.LuceneSegmentType;
 import ai.vital.service.lucene.impl.LuceneServiceQueriesImpl;
 import ai.vital.service.lucene.model.LuceneSegmentConfig;
@@ -72,66 +70,61 @@ import ai.vital.vitalsigns.global.GlobalHashTable;
 import ai.vital.vitalsigns.global.GlobalHashTableEdgesResolver;
 import ai.vital.vitalsigns.global.PostInitializationHookHandler;
 // import ai.vital.vitalsigns.groovy.JavaOperators;
-import ai.vital.vitalsigns.json.JSONSchemaGenerator;
-import ai.vital.vitalsigns.meta.AnnotationsImplementation;
-import ai.vital.vitalsigns.meta.ContainerEdgesResolver;
-import ai.vital.vitalsigns.meta.DomainAnnotationsAssigner;
-import ai.vital.vitalsigns.meta.DomainPropertyAnnotation;
-import ai.vital.vitalsigns.meta.EdgesResolver;
-import ai.vital.vitalsigns.meta.GraphContext;
-import ai.vital.vitalsigns.meta.HierarchyAccessAssigner;
-import ai.vital.vitalsigns.meta.PropertiesHelperAssigner;
-import ai.vital.vitalsigns.model.ClassPropertiesHelper;
-import ai.vital.vitalsigns.model.DomainModel;
-import ai.vital.vitalsigns.model.DomainOntology;
-import ai.vital.vitalsigns.model.Edge_hasChildDomainModel;
-import ai.vital.vitalsigns.model.Edge_hasParentDomainModel;
-import ai.vital.vitalsigns.model.GraphObject;
-
-import ai.vital.vitalsigns.model.VitalApp;
-import ai.vital.vitalsigns.model.VitalOrganization;
-import ai.vital.vitalsigns.model.VitalSegment;
-import ai.vital.vitalsigns.model.properties.Property_hasBackwardCompVersion;
-import ai.vital.vitalsigns.model.properties.Property_hasDefaultPackageValue;
-import ai.vital.vitalsigns.model.properties.Property_hasDomainOWLHash;
-
-import ai.vital.vitalsigns.model.properties.Property_hasName;
-
-
-
-import ai.vital.vitalsigns.model.properties.Property_hasPreferredImportVersions;
-import ai.vital.vitalsigns.model.properties.Property_hasVersionInfo;
-import ai.vital.vitalsigns.model.property.IProperty;
-import ai.vital.vitalsigns.model.property.URIProperty;
-import ai.vital.vitalsigns.ontology.DomainGenerator;
-import ai.vital.vitalsigns.ontology.ExtendedOntologyDescriptor;
-import ai.vital.vitalsigns.ontology.OntologyDescriptor;
-import ai.vital.vitalsigns.ontology.OntologyProcessor;
-import ai.vital.vitalsigns.ontology.VitalCoreOntology;
-import ai.vital.vitalsigns.properties.PropertiesRegistry;
-import ai.vital.vitalsigns.properties.PropertyMetadata;
-import ai.vital.vitalsigns.properties.PropertyTrait;
-import ai.vital.vitalsigns.rdf.RDFFormat;
-import ai.vital.vitalsigns.rdf.RDFSerialization;
-import ai.vital.vitalsigns.rdf.RDFUtils;
-import ai.vital.vitalsigns.uri.URIGenerator;
-import ai.vital.vitalsigns.utils.MemoryUtils;
-import ai.vital.vitalsigns.utils.NIOUtils;
-import ai.vital.vitalsigns.utils.StringUtils;
+import ai.vital.vitalsigns.json.JSONSchemaGenerator
+import ai.vital.vitalsigns.meta.AnnotationsImplementation
+import ai.vital.vitalsigns.meta.ContainerEdgesResolver
+import ai.vital.vitalsigns.meta.DomainAnnotationsAssigner
+import ai.vital.vitalsigns.meta.DomainPropertyAnnotation
+import ai.vital.vitalsigns.meta.EdgesResolver
+import ai.vital.vitalsigns.meta.GraphContext
+import ai.vital.vitalsigns.meta.HierarchyAccessAssigner
+import ai.vital.vitalsigns.meta.PropertiesHelperAssigner
+import ai.vital.vitalsigns.model.ClassPropertiesHelper
+import ai.vital.vitalsigns.model.DomainModel
+import ai.vital.vitalsigns.model.DomainOntology
+import ai.vital.vitalsigns.model.Edge_hasChildDomainModel
+import ai.vital.vitalsigns.model.Edge_hasParentDomainModel
+import ai.vital.vitalsigns.model.GraphObject
+import ai.vital.vitalsigns.model.VitalApp
+import ai.vital.vitalsigns.model.VitalOrganization
+import ai.vital.vitalsigns.model.VitalSegment
+import ai.vital.vitalsigns.model.properties.Property_hasBackwardCompVersion
+import ai.vital.vitalsigns.model.properties.Property_hasDefaultPackageValue
+import ai.vital.vitalsigns.model.properties.Property_hasDomainOWLHash
+import ai.vital.vitalsigns.model.properties.Property_hasName
+import ai.vital.vitalsigns.model.properties.Property_hasPreferredImportVersions
+import ai.vital.vitalsigns.model.properties.Property_hasVersionInfo
+import ai.vital.vitalsigns.model.property.IProperty
+import ai.vital.vitalsigns.model.property.URIProperty
+import ai.vital.vitalsigns.ontology.DomainGenerator
+import ai.vital.vitalsigns.ontology.ExtendedOntologyDescriptor
+import ai.vital.vitalsigns.ontology.OntologyDescriptor
+import ai.vital.vitalsigns.ontology.OntologyProcessor
+import ai.vital.vitalsigns.ontology.VitalCoreOntology
+import ai.vital.vitalsigns.properties.PropertiesRegistry
+import ai.vital.vitalsigns.properties.PropertyMetadata
+import ai.vital.vitalsigns.properties.PropertyTrait
+import ai.vital.vitalsigns.rdf.RDFFormat
+import ai.vital.vitalsigns.rdf.RDFSerialization
+import ai.vital.vitalsigns.rdf.RDFUtils
+import ai.vital.vitalsigns.uri.URIGenerator
+import ai.vital.vitalsigns.utils.MemoryUtils
+import ai.vital.vitalsigns.utils.NIOUtils
+import ai.vital.vitalsigns.utils.StringUtils
 import ai.vital.vitalsigns.utils.SystemExit
 
 public class VitalSigns {
 
-    public final static String VERSION = "0.8.0";
+    public final static String VERSION = "0.8.0"
     
-    public final static String GROUP_ID = "vital-ai";
+    public final static String GROUP_ID = "vital-ai"
     
-    public final static String ARTIFACT_ID = "vitalsigns";
+    public final static String ARTIFACT_ID = "vitalsigns"
     
-	public final static String CACHE_DOMAIN = "CACHE_DOMAIN";
+	public final static String CACHE_DOMAIN = "CACHE_DOMAIN"
 	
 	public static File getConfigFile(File vitalHome) {
-		return new File(vitalHome, "vital-config/vitalsigns/vitalsigns.config");
+		return new File(vitalHome, "vital-config/vitalsigns/vitalsigns.config")
 	}
 	
 	private VitalSignsDomainClassLoader vsdcl = VitalSignsDomainClassLoader.get();
